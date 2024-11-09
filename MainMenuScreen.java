@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainMenuScreen extends JFrame implements ActionListener {
@@ -69,6 +70,7 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
     protected int mapX = 0;  // X position of the map
     protected int mapY = 0;  // Y position of the map
     protected Point lastMousePosition;
+    protected ArrayList<Point> buildings; // List to store building positions
 
     public MapGame(String title) {
         setTitle(title);
@@ -76,13 +78,9 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        buildings = new ArrayList<>();
         addMouseListener(this);
         addMouseMotionListener(this);
-    }
-
-    @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
     }
 
     @Override
@@ -107,8 +105,44 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
         lastMousePosition = null;
     }
 
-    @Override public void mouseMoved(MouseEvent e) {}
-    @Override public void mouseClicked(MouseEvent e) {}
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // Convert the mouse click position to map coordinates
+        int clickX = e.getX() - mapX;
+        int clickY = e.getY() - mapY;
+
+        // Check if the click is within the specified open area
+        if (isWithinOpenArea(clickX, clickY)) {
+            buildings.add(new Point(clickX, clickY)); // Add building location
+            repaint(); // Redraw the map to include the new building
+        }
+    }
+
+    // Define an open area where buildings can be placed (e.g., a square in the center)
+    private boolean isWithinOpenArea(int x, int y) {
+        return x >= 900 && x <= 1100 && y >= 900 && y <= 1100; // Example 200x200 area
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {}
     @Override public void mouseEntered(MouseEvent e) {}
     @Override public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+
+        // Draw each building in the list
+        for (Point building : buildings) {
+            drawBuilding(g, building.x + mapX, building.y + mapY);
+        }
+    }
+
+    // Method to draw a building at a specified location
+    protected void drawBuilding(Graphics g, int x, int y) {
+        g.setColor(Color.GRAY); // Building color
+        g.fillRect(x - 15, y - 15, 30, 30); // Simple square building
+        g.setColor(Color.BLACK);
+        g.drawRect(x - 15, y - 15, 30, 30); // Building outline
+    }
 }
