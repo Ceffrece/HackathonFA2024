@@ -12,8 +12,6 @@ public class MainUserInterface extends JPanel{
     private JButton button;
 
     public MainUserInterface(){
-        //this.setLayout(new BorderLayout());
-
         JButton buildApartmentButton = new JButton("Apartment");
         JButton buildHouseButton = new JButton("Nuclear Power Plant");
         JButton buildFactoryButton = new JButton("Water Treatment Facility");
@@ -35,5 +33,7 @@ public class MainUserInterface extends JPanel{
          //this.addEventListeners();
 
          this.setVisible(true);
-    }  
+    }
+
+    
 }
