@@ -103,7 +103,7 @@ class Building:
 
     def draw_level(self, screen, x, y):
         level_text = font.render(f"Lvl {self.level}", True, WHITE)
-        screen.blit(level_text, (x + 15, y + 15))
+        screen.blit(level_text, (x + 15, y + 50))
 
 # Camera control with limits
 camera_x, camera_y = 0, 0
