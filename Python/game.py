@@ -13,7 +13,7 @@ pygame.display.set_caption('Sustainable Society Game')
 font = pygame.font.Font(None, 30)
 
 # Resource dictionary to hold current resources
-resources = {"food": 100, "water": 100, "energy": 100, "fuel": 100}
+resources = {"food": int(100), "water": int(100), "energy": int(100), "material": int(100)}
 
 # Colors for UI elements
 WHITE = (255, 255, 255)
@@ -51,18 +51,28 @@ class Building:
     def __init__(self, building_type):
         self.type = building_type
         self.level = 1
-        self.resource_usage = {"food": 0, "water": 0, "energy": 0, "fuel": 0}
-        self.resource_generation = {"food": 0, "water": 0, "energy": 0, "fuel": 0}
 
+        #what materials are used every loop
+        self.resource_usage = {"food": 0, "water": 0, "energy": 0, "material": 0}
+
+        #what materials are generated every loop
+        self.resource_generation = {"food": 0, "water": 0, "energy": 0, "material": 0}
+
+        #Rule: every building produces 10 of one resource. 
+        #There is a main resource used (by 4 units), and supplemental resources that are used (by 1 unit)
+        #generation to usage reatio is 10:6
         if building_type == "Farm":
-            self.resource_usage = {"food": 5, "water": 2, "energy": 1, "fuel": 0}
-            self.resource_generation = {"food": 10, "water": 0, "energy": 0, "fuel": 0}
+            self.resource_usage = {"food": 0, "water": 4, "energy": 1, "material": 1}
+            self.resource_generation = {"food": 10, "water": 0, "energy": 0, "material": 0}
         elif building_type == "Water Plant":
-            self.resource_usage = {"food": 0, "water": 10, "energy": 5, "fuel": 3}
-            self.resource_generation = {"food": 0, "water": 15, "energy": 0, "fuel": 0}
-        elif building_type == "Power Plant":
-            self.resource_usage = {"food": 0, "water": 0, "energy": 10, "fuel": 5}
-            self.resource_generation = {"food": 0, "water": 0, "energy": 20, "fuel": 0}
+            self.resource_usage = {"food": 1, "water": 0, "energy": 4, "material": 1}
+            self.resource_generation = {"food": 0, "water": 10, "energy": 0, "material": 0}
+        elif building_type == "Nuclear Power Plant":
+            self.resource_usage = {"food": 1, "water": 1, "energy": 0, "material": 4}
+            self.resource_generation = {"food": 0, "water": 0, "energy": 10, "material": 0}
+        elif building_type == "Apartment":
+            self.resource_usage = {"food": 4, "water": 1, "energy": 1, "material": 0}
+            self.resource_generation = {"food": 0, "water": 0, "energy": 0, "material": 10}
 
     def upgrade(self):
         self.level += 1
@@ -112,7 +122,7 @@ locations = [Location(x, y) for x in range(100, 1600, 200) for y in range(100, 1
 
 # Draw Resource UI
 def draw_resources():
-    resources_text = f"Food: {resources['food']}   Water: {resources['water']}   Energy: {resources['energy']}   Fuel: {resources['fuel']}"
+    resources_text = f"Food: {resources['food']}   Water: {resources['water']}   Energy: {resources['energy']}   Material: {resources['material']}"
     text_surface = font.render(resources_text, True, WHITE)
     screen.blit(text_surface, (10, 10))
 
