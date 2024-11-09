@@ -19,9 +19,9 @@ public class MainMenuScreen extends JFrame implements ActionListener {
         panel.add(titleLabel);
 
         // Add buttons for each map
-        JButton map1Button = new JButton("Map 1");
-        JButton map2Button = new JButton("Map 2");
-        JButton map3Button = new JButton("Map 3");
+        JButton map1Button = new JButton("Arizona: (Hot, Medium)");
+        JButton map2Button = new JButton("Russia (Cold, Hard)");
+        JButton map3Button = new JButton("Tureky: (Middle, Easy)");
         map1Button.addActionListener(this);
         map2Button.addActionListener(this);
         map3Button.addActionListener(this);

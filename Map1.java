@@ -2,7 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 class Map1 extends MapGame {
-
+    //Arizona
+    
     public Map1() {
         super("Map 1");
     }
