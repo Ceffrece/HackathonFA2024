@@ -10,7 +10,7 @@ public class Project extends JPanel implements MouseListener, MouseMotionListene
     private int mapY = 0;  // Y position of the map
     private Point lastMousePosition;  // Last mouse position to detect dragging
 
-    public Project() {
+    public Project(){
         // Load or generate a placeholder map
         mapImage = new BufferedImage(2000, 2000, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = mapImage.createGraphics();

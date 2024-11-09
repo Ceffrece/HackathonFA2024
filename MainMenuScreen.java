@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
+//meant to just hold the buttons for accessing each map
 public class MainMenuScreen extends JFrame implements ActionListener {
-
     public MainMenuScreen() {
         setTitle("Map Game Main Menu");
         setSize(400, 300);
@@ -71,6 +71,9 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
     protected Point lastMousePosition;
 
     public MapGame(String title) {
+        MainUserInterface mui = new MainUserInterface();
+        //this.add(mui, GridLayout);
+        
         setTitle(title);
         setSize(800, 600);
         setLocationRelativeTo(null);
