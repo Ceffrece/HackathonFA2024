@@ -1,11 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-<<<<<<< HEAD
-=======
 import java.awt.GridLayout;
 import java.util.Random;
->>>>>>> 50e8366146eaabd9ff80863681ce491e728a74ef
 
 class Map1 extends MapGame { // Desert Map
 
