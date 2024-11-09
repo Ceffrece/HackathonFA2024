@@ -75,7 +75,7 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
 
     public MapGame(String title) {
         MainUserInterface mui = new MainUserInterface();
-        //this.add(mui, GridLayout);
+        this.add(mui);
         
         setTitle(title);
         setSize(800, 600);
