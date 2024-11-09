@@ -8,7 +8,9 @@ class Map1 extends MapGame { // Desert Map
     public Map1() {
         super("Desert Map");
         MainUserInterface mui = new MainUserInterface();
-        this.add(mui, BorderLayout.SOUTH);
+        //this.add(mui, BorderLayout.CENTER); 
+
+       // MainUserInterface gUI = new MainUserInterface();
     }
 
     @Override

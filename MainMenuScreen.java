@@ -74,7 +74,8 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
     protected ArrayList<Point> buildings; // List to store building positions
 
     public MapGame(String title) {
-        MainUserInterface mui = new MainUserInterface();
+        MainUserInterface mui = new MainUserInterface(); 
+        mui.setVisible(true);
         //this.add(mui, GridLayout);
         
         setTitle(title);
