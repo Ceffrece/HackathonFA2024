@@ -156,6 +156,7 @@ def update_resources_slowly():
         fluctuation = random.uniform(-1, 1) * 0.5  # Slow fluctuation, smaller range
         resources[resource] += fluctuation
         resources[resource] = max(resources[resource], 0)  # Ensure resources don't go negative
+        resources[resource] = round(resources[resource], 1) # Round decimal places to 2 places
 
 # Main game loop
 def game_loop():
