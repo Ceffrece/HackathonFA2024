@@ -25,9 +25,11 @@ DARK_GREY = (50, 50, 50)
 
 # Load building images
 building_images = {
-    "Farm": pygame.image.load("farm.png"),
-    "Water Plant": pygame.image.load("water_plant.png"),
-    "Power Plant": pygame.image.load("power_plant.png"),
+    "Farm": pygame.transform.scale(pygame.image.load("farm.png"), (50,50)),
+    "Water Plant": pygame.transform.scale(pygame.image.load("water_plant.png"), (50,50)),
+    "Power Plant": pygame.transform.scale(pygame.image.load("power_plant.png"), (50,50)),
+    "Nuclear Power Plant": pygame.transform.scale(pygame.image.load("nuclear_power_plant.png"), (50,50)),
+    "Apartment": pygame.transform.scale(pygame.image.load("apartment.jpg"), (50,50)),
 }
 
 # Location and Building setup
@@ -58,6 +60,7 @@ class Building:
     def __init__(self, building_type):
         self.type = building_type
         self.level = 1
+        self.image = building_images.get(building_type)
 
         #what materials are used every loop
         self.resource_usage = {"food": 0, "water": 0, "energy": 0, "material": 0}
@@ -88,15 +91,15 @@ class Building:
         self.resource_usage = {key: value * self.level for key, value in self.resource_usage.items()}
         self.resource_generation = {key: value * self.level for key, value in self.resource_generation.items()}
 
-    def get_color(self):
-        if self.type == "Farm":
-            return GREEN
-        elif self.type == "Water Plant":
-            return BLUE
-        elif self.type == "Power Plant":
-            return YELLOW
-        else:
-            return WHITE
+    # def get_color(self):
+    #     if self.type == "Farm":
+    #         return GREEN
+    #     elif self.type == "Water Plant":
+    #         return BLUE
+    #     elif self.type == "Power Plant":
+    #         return YELLOW
+    #     else:
+    #         return WHITE
 
     def draw_level(self, screen, x, y):
         level_text = font.render(f"Lvl {self.level}", True, WHITE)
@@ -225,7 +228,7 @@ def game_loop():
             pygame.draw.rect(screen, GREEN, location.rect.move(camera_x, camera_y))
             if location.building:
                 # Draw a visual representation of the building
-                pygame.draw.rect(screen, location.building.get_color(), location.rect.move(camera_x, camera_y))
+                screen.blit(location.building.image, location.rect)
                 location.building.draw_level(screen, location.rect.x, location.rect.y)
 
             # Draw menus for build and upgrade
