@@ -1,5 +1,18 @@
 Notes for Our Idea: 
+Variables 
+- FUEL, WATER, ENERGY, FOOD 
+- Having associated buildings that generate each type of variable
 
+
+IDEA:
 - Having Maps represent biomes or environments to manage 
 - Having each biome associated with real world stats of sustainability 
-- The Player will 
+- The player will... build things to affect resources and "sustainaility levels" 
+- The goal, for each biome, is to establish "100% happiness" within the biome to "complete it" 
+- Have "random events" where a real-world policy is implemented, which affects the resource distribution or levels of a given biome 
+   - (i.e. The Gloab Warming Solutions Acts [2008] requires the state to reduce total greenhouse gas to at least 10 percent below 1990 levels by 2020, and to at least 80 percent below 2001 levels by 2050)
+   - (this would be implemented via an event where the FUEL EMISSIONS would slowly reduce for a certain amount of time) 
+- The player would WIN if the HAPPINESS variable reaches a certain high point (100) 
+    - This would be calucated by the average of all the biome variables, with the averagre looking differnt based on the biome (i.e. HAPPINESS in AZ would look different thatn HAPPINESS in Turkey) 
+- The player would LOSE if the player HAPPINESS would get too low, also based on this average 
+- 
