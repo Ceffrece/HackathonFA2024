@@ -163,6 +163,50 @@ def draw_build_menu():
         screen.blit(font.render(option, True, WHITE), (10, y_offset))
         y_offset += 30
 
+#Lose screen
+def show_lose_screen():
+    screen.fill(DARK_GREY)
+    lose_text = font.render("Game Over! All resources depleted.", True, WHITE)
+    restart_text = font.render("Press R to Restart or Q to Quit", True, WHITE)
+    screen.blit(lose_text, (200, 250))
+    screen.blit(restart_text, (200, 300))
+    pygame.display.flip()
+
+    # Wait for player input to restart or quit
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:  # Restart the game
+                    game_loop()  # Call the main function to restart
+                elif event.key == pygame.K_q:  # Quit the game
+                    pygame.quit()
+                    sys.exit()
+
+#Win screen
+def show_win_screen():
+    screen.fill(DARK_GREY)
+    win_text = font.render("You WIN!.", True, WHITE)
+    restart_text = font.render("Press R to Restart or Q to Quit", True, WHITE)
+    screen.blit(win_text, (200, 250))
+    screen.blit(restart_text, (200, 300))
+    pygame.display.flip()
+
+    # Wait for player input to restart or quit
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:  # Restart the game
+                    game_loop()  # Call the main function to restart
+                elif event.key == pygame.K_q:  # Quit the game
+                    pygame.quit()
+                    sys.exit()
+
 # Main game loop
 def game_loop(): 
     global camera_x, camera_y
@@ -215,10 +259,17 @@ def game_loop():
             counter = counter + 1
 
         # Check for loss condition
-        if all(resource <= 0 for resource in resources.values()):
+        key = pygame.key.get_pressed()
+        if(key[pygame.K_l]):
             print("Game Over: Resources are all zero.")
-            pygame.quit()
-            sys.exit()
+            show_lose_screen();
+            return;
+    
+        #Check for win condition
+        if(key[pygame.K_w]):
+            print("WIN!")
+            show_win_screen();
+            return;
 
         # Fill the screen with background color
         screen.fill(DARK_GREY)
