@@ -188,6 +188,8 @@ def game_loop():
                     selected_building = "Water Plant"
                 elif event.key == pygame.K_3:
                     selected_building = "Power Plant"
+                elif event.key == pygame.K_4:
+                    selected_building = "Apartment"
 
         # handle_camera_movement()
 
