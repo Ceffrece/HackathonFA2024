@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 # Initialize PyGame
 pygame.init()
@@ -41,7 +42,7 @@ class Location:
         self.is_building_menu_open = False  # Close the build menu once built
 
     def upgrade(self):
-        if self.building:
+        if self.building and self.building.level < 3:
             self.building.upgrade()
 
 class Building:
@@ -73,6 +74,8 @@ class Building:
 
     def upgrade(self):
         self.level += 1
+        if self.level > 3:
+            self.level = 3
         self.resource_usage = {key: value * self.level for key, value in self.resource_usage.items()}
         self.resource_generation = {key: value * self.level for key, value in self.resource_generation.items()}
 
@@ -84,6 +87,10 @@ class Building:
         elif self.type == "Power Plant":
             return YELLOW
         return WHITE
+
+    def draw_level(self, screen, x, y):
+        level_text = font.render(f"Lvl {self.level}", True, WHITE)
+        screen.blit(level_text, (x + 15, y + 15))
 
 # Camera control with limits
 camera_x, camera_y = 0, 0
@@ -143,6 +150,13 @@ def draw_build_menu():
         screen.blit(font.render(option, True, WHITE), (10, y_offset))
         y_offset += 30
 
+# Slow down resource fluctuation by a factor of 150%
+def update_resources_slowly():
+    for resource in resources:
+        fluctuation = random.uniform(-1, 1) * 0.5  # Slow fluctuation, smaller range
+        resources[resource] += fluctuation
+        resources[resource] = max(resources[resource], 0)  # Ensure resources don't go negative
+
 # Main game loop
 def game_loop():
     global camera_x, camera_y
@@ -180,6 +194,9 @@ def game_loop():
 
         handle_camera_movement()
 
+        # Slow down resource generation and consumption
+        update_resources_slowly()
+
         # Resource generation/consumption for each building
         for location in locations:
             if location.building:
@@ -202,6 +219,7 @@ def game_loop():
             if location.building:
                 # Draw a visual representation of the building
                 pygame.draw.rect(screen, location.building.get_color(), location.rect.move(camera_x, camera_y))
+                location.building.draw_level(screen, location.rect.x, location.rect.y)
 
             # Draw menus for build and upgrade
             if location.is_building_menu_open:
