@@ -1,0 +1,5 @@
+Notes for Our Idea: 
+
+- Having Maps represent biomes or environments to manage 
+- Having each biome associated with real world stats of sustainability 
+- The Player will 
