@@ -1,6 +1,8 @@
 import pygame
 import sys
-import random
+import random 
+#import time
+
 
 # Initialize PyGame
 pygame.init()
@@ -152,8 +154,9 @@ def draw_build_menu():
         y_offset += 30
 
 # Main game loop
-def game_loop():
+def game_loop(): 
     global camera_x, camera_y
+    counter = 0
     selected_building = None
     while True:
         for event in pygame.event.get():
@@ -185,14 +188,19 @@ def game_loop():
                     selected_building = "Water Plant"
                 elif event.key == pygame.K_3:
                     selected_building = "Power Plant"
-                else: 
-                    selected_building = "Apartment"
-        # Resource generation/consumption for each building
-        for location in locations:
-            if location.building:
-                for resource in resources:
-                    resources[resource] += location.building.resource_generation.get(resource, 0)
-                    resources[resource] -= location.building.resource_usage.get(resource, 0)
+
+        handle_camera_movement()
+
+        if (counter >= 2000):
+            # Resource generation/consumption for each building
+            for location in locations:
+                if location.building:
+                    for resource in resources:
+                        resources[resource] += location.building.resource_generation.get(resource, 0)
+                        resources[resource] -= location.building.resource_usage.get(resource, 0)
+            counter = 0
+        else:
+            counter = counter + 1
 
         # Check for loss condition
         if all(resource <= 0 for resource in resources.values()):
