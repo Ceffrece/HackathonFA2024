@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
 
 class Map3 extends MapGame { // Spring Map
 

@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 //meant to just hold the buttons for accessing each map
 public class MainMenuScreen extends JFrame implements ActionListener {
