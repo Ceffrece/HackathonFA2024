@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainMenuScreen extends JFrame implements ActionListener {
 
@@ -72,10 +71,17 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
     protected int mapY = 0;  // Y position of the map
     protected Point lastMousePosition;
     protected ArrayList<Point> buildings; // List to store building positions
+    private boolean buildAreaOccupied = false; // Track if a building is already added in the build area
+
+    // Constants for the map boundaries and buildable area
+    public static final int MAP_SIZE = 2000;
+    private static final int VIEWPORT_WIDTH = 800;
+    private static final int VIEWPORT_HEIGHT = 600;
+    private static final Rectangle BUILD_AREA = new Rectangle(900, 900, 200, 200); // Central buildable area
 
     public MapGame(String title) {
         setTitle(title);
-        setSize(800, 600);
+        setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -94,10 +100,12 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
         Point currentMousePosition = e.getPoint();
         int dx = currentMousePosition.x - lastMousePosition.x;
         int dy = currentMousePosition.y - lastMousePosition.y;
-        mapX += dx;
-        mapY += dy;
-        lastMousePosition = currentMousePosition;
 
+        // Update mapX and mapY with boundaries
+        mapX = Math.max(Math.min(mapX + dx, 0), VIEWPORT_WIDTH - MAP_SIZE);
+        mapY = Math.max(Math.min(mapY + dy, 0), VIEWPORT_HEIGHT - MAP_SIZE);
+
+        lastMousePosition = currentMousePosition;
         repaint();
     }
 
@@ -108,30 +116,32 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // Convert the mouse click position to map coordinates
         int clickX = e.getX() - mapX;
         int clickY = e.getY() - mapY;
 
-        // Check if the click is within the specified open area
-        if (isWithinOpenArea(clickX, clickY)) {
-            buildings.add(new Point(clickX, clickY)); // Add building location
-            repaint(); // Redraw the map to include the new building
+        // Check if the click is within the build area and it's not occupied
+        if (BUILD_AREA.contains(clickX, clickY) && !buildAreaOccupied) {
+            int result = JOptionPane.showConfirmDialog(this, "Would you like to add a building here?", 
+                    "Build Confirmation", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                buildings.add(new Point(BUILD_AREA.x + BUILD_AREA.width / 2, BUILD_AREA.y + BUILD_AREA.height / 2));
+                buildAreaOccupied = true; // Mark the build area as occupied
+                repaint();
+            }
         }
     }
-
-    // Define an open area where buildings can be placed (e.g., a square in the center)
-    private boolean isWithinOpenArea(int x, int y) {
-        return x >= 900 && x <= 1100 && y >= 900 && y <= 1100; // Example 200x200 area
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {}
-    @Override public void mouseEntered(MouseEvent e) {}
-    @Override public void mouseExited(MouseEvent e) {}
 
     @Override
     public void paintComponents(Graphics g) {
         super.paintComponents(g);
+
+        // Draw the build area with a border color based on occupancy
+        g.setColor(buildAreaOccupied ? Color.RED : Color.GREEN); // Red if occupied, Green if available
+        g.drawRect(BUILD_AREA.x + mapX - 1, BUILD_AREA.y + mapY - 1, BUILD_AREA.width + 2, BUILD_AREA.height + 2); // Border
+
+        // Fill the build area with a distinct color if available
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(BUILD_AREA.x + mapX, BUILD_AREA.y + mapY, BUILD_AREA.width, BUILD_AREA.height);
 
         // Draw each building in the list
         for (Point building : buildings) {
