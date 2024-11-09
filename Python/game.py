@@ -58,7 +58,7 @@ class Building:
 
         #Rule: every building produces 10 of one resource. 
         #There is a main resource used (by 4 units), and supplemental resources that are used (by 1 unit)
-        #generation to usage reatio is 10:6
+        #generation to usage ratio is 10:6
         if building_type == "Farm":
             self.resource_usage = {"food": 0, "water": 4, "energy": 1, "material": 1}
             self.resource_generation = {"food": 10, "water": 0, "energy": 0, "material": 0}
@@ -86,7 +86,8 @@ class Building:
             return BLUE
         elif self.type == "Power Plant":
             return YELLOW
-        return WHITE
+        else:
+            return WHITE
 
     def draw_level(self, screen, x, y):
         level_text = font.render(f"Lvl {self.level}", True, WHITE)
@@ -99,21 +100,21 @@ camera_limit_x = 0  # Set left limit
 camera_limit_y = 0  # Set top limit
 
 # Camera movement limits (camera cannot go beyond the map's borders)
-def handle_camera_movement():
-    global camera_x, camera_y
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_RIGHT]:
-        if camera_x > -map_width + 800:  # Limit right
-            camera_x -= 5
-    if keys[pygame.K_LEFT]:
-        if camera_x < 0:  # Limit left
-            camera_x += 5
-    if keys[pygame.K_UP]:
-        if camera_y < 0:  # Limit up
-            camera_y += 5
-    if keys[pygame.K_DOWN]:
-        if camera_y > -map_height + 600:  # Limit down
-            camera_y -= 5
+# def handle_camera_movement():
+#     global camera_x, camera_y
+#     keys = pygame.key.get_pressed()
+#     if keys[pygame.K_RIGHT]:
+#         if camera_x > -map_width + 800:  # Limit right
+#             camera_x -= 5
+#     if keys[pygame.K_LEFT]:
+#         if camera_x < 0:  # Limit left
+#             camera_x += 5
+#     if keys[pygame.K_UP]:
+#         if camera_y < 0:  # Limit up
+#             camera_y += 5
+#     if keys[pygame.K_DOWN]:
+#         if camera_y > -map_height + 600:  # Limit down
+#             camera_y -= 5
 
 # List of locations (these are clickable areas where the player can build)
 locations = [Location(x, y) for x in range(100, 1600, 200) for y in range(100, 1200, 200)]
@@ -128,7 +129,7 @@ def draw_resources():
 def draw_controls():
     controls_text = [
         "Controls:",
-        "Arrow keys: Move Camera",
+        #"Arrow keys: Move Camera",
         "Click on Locations: Open Build Menu",
         "Press B: Build Structure",
         "Press U: Upgrade Structure"
@@ -143,19 +144,12 @@ def draw_controls():
 # Draw Build Menu
 def draw_build_menu():
     build_menu_text = "Build Menu:"
-    options = ["1: Farm", "2: Water Plant", "3: Power Plant"]
+    options = ["1: Farm", "2: Water Plant", "3: Power Plant", "4: Apartment"]
     screen.blit(font.render(build_menu_text, True, WHITE), (10, 200))
     y_offset = 240
     for option in options:
         screen.blit(font.render(option, True, WHITE), (10, y_offset))
         y_offset += 30
-
-# Slow down resource fluctuation by a factor of 150%
-def update_resources_slowly():
-    for resource in resources:
-        fluctuation = random.uniform(-1, 1) * 0.5  # Slow fluctuation, smaller range
-        resources[resource] += fluctuation
-        resources[resource] = max(resources[resource], 0)  # Ensure resources don't go negative
 
 # Main game loop
 def game_loop():
@@ -191,12 +185,8 @@ def game_loop():
                     selected_building = "Water Plant"
                 elif event.key == pygame.K_3:
                     selected_building = "Power Plant"
-
-        handle_camera_movement()
-
-        # Slow down resource generation and consumption
-        update_resources_slowly()
-
+                else: 
+                    selected_building = "Apartment"
         # Resource generation/consumption for each building
         for location in locations:
             if location.building:
