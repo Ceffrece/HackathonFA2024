@@ -23,6 +23,13 @@ RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 DARK_GREY = (50, 50, 50)
 
+# Load building images
+building_images = {
+    "Farm": pygame.image.load("farm.png"),
+    "Water Plant": pygame.image.load("water_plant.png"),
+    "Power Plant": pygame.image.load("power_plant.png"),
+}
+
 # Location and Building setup
 class Location:
     def __init__(self, x, y):
