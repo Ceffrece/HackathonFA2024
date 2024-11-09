@@ -1,6 +1,8 @@
 import pygame
 import sys
-import random
+import random 
+#import time
+
 
 # Initialize PyGame
 pygame.init()
@@ -155,12 +157,12 @@ def update_resources_slowly():
     for resource in resources:
         fluctuation = random.uniform(-1, 1) * 0.5  # Slow fluctuation, smaller range
         resources[resource] += fluctuation
-        resources[resource] = max(resources[resource], 0)  # Ensure resources don't go negative
-        resources[resource] = round(resources[resource], 1) # Round decimal places to 2 places
+        resources[resource] = max(resources[resource], 0)  # Ensure resources don't go negative 
 
 # Main game loop
-def game_loop():
+def game_loop(): 
     global camera_x, camera_y
+    counter = 0
     selected_building = None
     while True:
         for event in pygame.event.get():
@@ -195,8 +197,12 @@ def game_loop():
 
         handle_camera_movement()
 
-        # Slow down resource generation and consumption
-        update_resources_slowly()
+        # Slow down resource generation and consumption 
+        if (counter >= 1000):
+            update_resources_slowly() 
+            counter = 0
+        else:
+            counter = counter + 1
 
         # Resource generation/consumption for each building
         for location in locations:
