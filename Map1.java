@@ -1,18 +1,23 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
-class Map1 extends MapGame {
+class Map1 extends MapGame { // Desert Map
 
     public Map1() {
-        super("Map 1");
+        super("Desert Map");
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(Color.CYAN);
-        g.fillRect(mapX, mapY, 2000, 2000); // Large cyan background
+        
+        // Desert background color
+        g.setColor(new Color(237, 201, 175)); // Sandy desert color
+        g.fillRect(mapX, mapY, 2000, 2000);
+
+        // Center label
         g.setColor(Color.BLACK);
-        g.drawString("Map 1 Center", mapX + 1000, mapY + 1000);
+        g.drawString("Desert Map Center", mapX + 1000, mapY + 1000);
     }
 }
