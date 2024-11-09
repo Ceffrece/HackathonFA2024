@@ -12,12 +12,12 @@ public class MainUserInterface extends JPanel{
     private JButton button;
 
     public MainUserInterface(){
-        this.setLayout(new BorderLayout());
+        //this.setLayout(new BorderLayout());
 
         JButton buildApartmentButton = new JButton("Apartment");
-        JButton buildHouseButton = new JButton("House");
-        JButton buildFactoryButton = new JButton("Factory");
-        JButton buildSchoolButton = new JButton("School");
+        JButton buildHouseButton = new JButton("Nuclear Power Plant");
+        JButton buildFactoryButton = new JButton("Water Treatment Facility");
+        JButton buildSchoolButton = new JButton("Farm");
 
         this.add(buildApartmentButton);
         this.add(buildHouseButton);
