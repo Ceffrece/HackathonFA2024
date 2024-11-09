@@ -40,7 +40,8 @@ public class MainMenuScreen extends JFrame implements ActionListener {
 
         switch (command) {
             case "Map 1":
-                mapGame = new Map1();
+                mapGame = new Map1(); 
+               // mapGame.paint(getGraphics()); //
                 break;
             case "Map 2":
                 mapGame = new Map2();
