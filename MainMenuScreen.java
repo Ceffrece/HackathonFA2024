@@ -116,7 +116,7 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
 
         // Check if the click is within the specified open area
         if (isWithinOpenArea(clickX, clickY)) {
-            buildings.add(new Point(clickX, clickY)); // Add building location
+            buildings.add(new Point(clickX,     clickY)); // Add building location
             repaint(); // Redraw the map to include the new building
         }
     }
