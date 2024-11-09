@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+//meant to just hold the buttons for accessing each map
 public class MainMenuScreen extends JFrame implements ActionListener {
-
     public MainMenuScreen() {
         setTitle("Map Game Main Menu");
         setSize(400, 300);
@@ -80,6 +80,9 @@ abstract class MapGame extends JFrame implements MouseListener, MouseMotionListe
     private static final Rectangle BUILD_AREA = new Rectangle(900, 900, 200, 200); // Central buildable area
 
     public MapGame(String title) {
+        MainUserInterface mui = new MainUserInterface();
+        //this.add(mui, GridLayout);
+        
         setTitle(title);
         setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         setLocationRelativeTo(null);

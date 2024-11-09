@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -6,6 +7,8 @@ class Map1 extends MapGame { // Desert Map
 
     public Map1() {
         super("Desert Map");
+        MainUserInterface mui = new MainUserInterface();
+        this.add(mui, BorderLayout.SOUTH);
     }
 
     @Override
