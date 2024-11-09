@@ -196,7 +196,7 @@ def game_loop():
                 elif event.key == pygame.K_3:
                     selected_building = "Power Plant"
 
-        handle_camera_movement()
+        # handle_camera_movement()
 
         if (counter >= 2000):
             # Resource generation/consumption for each building
