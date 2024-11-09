@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Random;
 
 class Map2 extends MapGame { // Winter Map
 

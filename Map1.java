@@ -31,7 +31,6 @@ class Map1 extends MapGame { // Desert Map
         g.setColor(Color.BLACK);
         g.drawString("Desert Map Center", mapX + 1000, mapY + 1000);
     }
-
     // private void drawCactus(Graphics g, int x, int y) {
     //     g.fillRect(x, y - 30, 10, 30); // Main cactus trunk
     //     g.fillRect(x - 10, y - 20, 10, 10); // Left arm
