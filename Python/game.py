@@ -157,7 +157,8 @@ def update_resources_slowly():
     for resource in resources:
         fluctuation = random.uniform(-1, 1) * 0.5  # Slow fluctuation, smaller range
         resources[resource] += fluctuation
-        resources[resource] = max(resources[resource], 0)  # Ensure resources don't go negative 
+        resources[resource] = max(resources[resource], 0)  # Ensure resources don't go negative
+        resources[resource] = max  
 
 # Main game loop
 def game_loop(): 
@@ -197,19 +198,16 @@ def game_loop():
 
         handle_camera_movement()
 
-        # Slow down resource generation and consumption 
-        if (counter >= 1000):
-            update_resources_slowly() 
+        if (counter >= 2000):
+            # Resource generation/consumption for each building
+            for location in locations:
+                if location.building:
+                    for resource in resources:
+                        resources[resource] += location.building.resource_generation.get(resource, 0)
+                        resources[resource] -= location.building.resource_usage.get(resource, 0)
             counter = 0
         else:
             counter = counter + 1
-
-        # Resource generation/consumption for each building
-        for location in locations:
-            if location.building:
-                for resource in resources:
-                    resources[resource] += location.building.resource_generation.get(resource, 0)
-                    resources[resource] -= location.building.resource_usage.get(resource, 0)
 
         # Check for loss condition
         if all(resource <= 0 for resource in resources.values()):
