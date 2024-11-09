@@ -29,7 +29,7 @@ building_images = {
     "Water Plant": pygame.transform.scale(pygame.image.load("water_plant.png"), (50,50)),
     "Power Plant": pygame.transform.scale(pygame.image.load("power_plant.png"), (50,50)),
     "Nuclear Power Plant": pygame.transform.scale(pygame.image.load("nuclear_power_plant.png"), (50,50)),
-    "Apartment": pygame.transform.scale(pygame.image.load("apartment.jpg"), (50,50)),
+    "Apartment": pygame.transform.scale(pygame.image.load("apartment.png"), (50,50)),
 }
 
 # Location and Building setup
